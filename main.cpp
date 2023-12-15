@@ -1,10 +1,9 @@
+#include "SFML/Graphics.hpp"
 #include <iostream>
 #include "mover.h"
 #include "food.h"
 #include <ctime>
 #include <vector>
-
-
 
 void drawMover(Mover& m, sf::RenderWindow &window)
 {
@@ -18,7 +17,6 @@ void drawMover(Mover& m, sf::RenderWindow &window)
 
 void drawFood(Food& food, sf::RenderWindow &window)
 {
-    //f.update();
     food.display(window);
 }
 
@@ -29,7 +27,7 @@ int main()
     window.create(sf::VideoMode(800, 600), "SFML");
     window.setFramerateLimit(10);
     Food food;
-    Mover *m = new Mover (food);
+    Mover m (food);
 
 
     while(window.isOpen())
@@ -44,25 +42,25 @@ int main()
                     break;
             case sf::Event::EventType::KeyPressed:
                 if(sf::Keyboard::Key::Up == event.key.code)
-                    m->setDirection(0,-1);
+                    m.setDirection(0,-1);
 
                 if(sf::Keyboard::Key::Down == event.key.code)
-                    m->setDirection(0,1);
+                    m.setDirection(0,1);
 
                 if(sf::Keyboard::Key::Left == event.key.code)
-                    m->setDirection(-1,0);
+                    m.setDirection(-1,0);
 
                 if(sf::Keyboard::Key::Right == event.key.code)
-                    m->setDirection(1,0);
+                    m.setDirection(1,0);
 
                 if(sf::Keyboard::Key::Q == event.key.code)
-                    m->test_displayPositions();
+                    m.test_displayPositions();
 
             }
         } // end of events
 
 
-        drawMover(*m, window);
+        drawMover(m, window);
         drawFood(food, window);
 
         window.display();
